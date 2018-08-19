@@ -1,0 +1,207 @@
+---
+title: The Effect of Vitamin C on Tooth Growth in Guinea Pigs
+output: pdf_document
+author: Ajla Dzajic
+---
+
+### Statistical Inference Course Project 
+### Part 2 - Basic Inferential Data Analysis
+
+
+**Description**
+
+We're going to analyze the ToothGrowth data in the R datasets package.
+The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. 
+Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery 
+methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC).
+
+&nbsp;
+
+**1. Load the ToothGrowth data and perform some basic exploratory data analyses**
+```{r}
+data(ToothGrowth)
+str(ToothGrowth)
+```
+
+We can see that out data frame ToothGrowth contains 60 observation of 3 variables. 
+Variable supp of type factor has two levels. VC stands for Vitamin C (ascorbic acid) and OJ is Orange Juice.
+
+```{r}
+table(ToothGrowth$supp, ToothGrowth$dose)
+```
+
+We can see that for each supplement type we have 3 dose levels of vitamin C (0.5, 1, and 2 mg/day). 
+Each supplement is tested on 30 guinea piggs and each supplement is tested in different doses on a subgroup of 10 guinea pigs.
+
+```{r, fig.width=6, fig.height=3, echo=FALSE}
+library(ggplot2)
+vitaminC <- subset(ToothGrowth, supp == 'VC')
+g <- ggplot(vitaminC, aes(factor(dose), len))
+g <- g + geom_boxplot(aes(fill = factor(dose)))
+g <- g + labs(title = 'Effect of Ascorbic Acid on Tooth Growth in Guinea Pigs',
+    x = 'Dose Level in mg/day', 
+    y = 'Length of Odontoblasts')
+g
+```
+
+From the boxlots it's obvious that the cells responsible for tooth growth in guinea pigs are getting longer as we increase the dose of ascorbic acid as a supplement.
+
+```{r}
+tapply(vitaminC$len, vitaminC$dose, mean)
+tapply(vitaminC$len, vitaminC$dose, var)
+```
+
+We can see that both means and variances of each group differ noticeably. 
+
+```{r, fig.width=6, fig.height=3, echo=FALSE}
+orangeJ <- subset(ToothGrowth, supp == 'OJ')
+g <- ggplot(orangeJ, aes(factor(dose), len))
+g <- g + geom_boxplot(aes(fill = factor(dose)))
+g <- g + labs(title = 'Effect of Orange Juice on Tooth Growth in Guinea Pigs', 
+              x = 'Dose Level in mg/day', y = 'Length of Odontoblasts')
+g
+```
+
+From these boxplots we can see that as the dose level increases, so does the lenght of odontoblasts.
+
+```{r}
+tapply(orangeJ$len, vitaminC$dose, mean)
+tapply(orangeJ$len, vitaminC$dose, var)
+```
+
+We can also check if there is an overall difference in the effect on tooth growth between two supplements.
+
+```{r}
+tapply(ToothGrowth$len, ToothGrowth$supp, mean)
+```
+
+We can see that orange juice as a supplement is, on average, much more effective in promoting tooth growth in guinea pigs than ascorbic acid.
+
+```{r, fig.width=6, fig.height=3, echo=FALSE}
+g <- ggplot(ToothGrowth, aes(factor(supp), len))
+g <- g + geom_boxplot(aes(fill = factor(supp)))
+g <- g + labs(title = 'Effect of VC and OJ on Tooth Growth in Guinea Pigs', 
+              x = 'Dose Level in mg/day', y = 'Length of Odontoblasts')
+g
+```
+
+From this graph we can also see that acsorbic acid as a supplement has more varying effects on tooth growth in guinea pigs.
+
+````{r}
+tapply(ToothGrowth$len, ToothGrowth$supp, var)
+```
+
+This confirms our initial claim that ascorbic acid causes greater variance in resulting length of 
+odontoblasts (cells responsible for tooth growth).
+
+To see the overall effect of dose level on tooth growth:
+
+```{r, fig.width=6, fig.height=3, echo=FALSE}
+g <- ggplot(ToothGrowth, aes(factor(dose), len))
+g <- g + geom_boxplot(aes(fill = factor(dose)))
+g <- g + labs(title = 'Effect of Dose Level on Tooth Growth in Guinea Pigs', 
+              x = 'Dose Level in mg/day', y = 'Length of Odontoblasts')
+g
+```
+
+```{r}
+tapply(ToothGrowth$len, ToothGrowth$dose, mean)
+tapply(ToothGrowth$len, ToothGrowth$dose, var)
+```
+
+As expected, as we increase the dose, the lenght of odontoblasts increases irrelative of the supplement type used.
+
+&nbsp;
+
+**2. Provide a basic summary of the data.**
+
+```{r}
+summary(ToothGrowth)
+```
+
+From this output we can't really see much, except that in each supplement subgroup there are 30 guinea pigs
+We also see that the overall mean of length of odontoblasts is 18.81 and the median is 19.25. Minimum length is 4.20 and maximum is 33.90. 
+
+&nbsp;
+
+&nbsp;
+
+**3. Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.**
+(Only use the techniques from class, even if there's other approaches worth considering)
+
+**First** we'll test the alternative hypothesis that mean length of odontoblasts for ascorbic acid (VC) and orange juice (OJ) differs significantly. 
+We'll assume unequal variance and we know that these groups are not paired.
+Even though these setting are default in t.test(), I'll assign them FALSE value for the sake of clarity.
+
+```{r}
+vitaminC <- subset(ToothGrowth, supp == 'VC')
+orangeJ <- subset(ToothGrowth, supp == 'OJ')
+t.test(vitaminC$len, orangeJ$len, paired = FALSE, var.equal = FALSE)
+```
+
+As we can see p-value = 0.06063 > 0.05 => There is not enough evidence to reject the null hypothesis that 
+the difference in average tooth length (odontoblasts) for VC and OJ group is equal to zero.
+
+In our **second step** we'll do several t-tests to check if there's a statistically significant difference in mean values of length of odontoblasts (tooth growth cells) between groups that were subjected to different dose levels of supplements. 
+We'll assume again that paired = FALSE  and var.equal = FALSE, but since these are default in t.test() this time we'll skip redundant assignments.
+
+```{r}
+dose05 <- ToothGrowth$len[ToothGrowth$dose == 0.5]
+dose1 <- ToothGrowth$len[ToothGrowth$dose == 1.0]
+dose2 <- ToothGrowth$len[ToothGrowth$dose == 2.0]
+
+t.test(dose05, dose1 )
+t.test(dose05, dose2)
+t.test(dose1, dose2)
+```
+ 
+As we can see from all 3 t.tests p value is less than 0.05 and we can reject the null hypothesis that 
+difference between means is equal to zero. We also see that all of the 95% confidence intervals are below zero which confirms are inital claims that the tooth growth increases as we increase the dose level.
+
+In the **third step** we'll inspect the diference in mean lengths of odontoblasts (cells responsible for 
+tooth growth) between ascorbic acid (VC) group and orange juice (OJ) group for each dose level applied.
+
+```{r}
+dose05VC <- vitaminC$len[vitaminC$dose == 0.5]
+dose1VC <- vitaminC$len[vitaminC$dose == 1.0]
+dose2VC <- vitaminC$len[vitaminC$dose == 2.0]
+
+dose05OJ <- orangeJ$len[orangeJ$dose == 0.5]
+dose1OJ <- orangeJ$len[orangeJ$dose == 1.0]
+dose2OJ <- orangeJ$len[orangeJ$dose == 2.0]
+```
+
+As in previous cases, we'll assume that observations are not paired and that variances are not equal.
+
+```{r}
+t.test(dose05VC, dose05OJ)
+t.test(dose1VC, dose1OJ)
+t.test(dose2VC, dose2OJ)
+```
+
+We can see from the t-tests that the difference between group means for VC and OJ is statistically  significant for dose level 0.5 mg/day, where p = 0.006358 < p = 0.05  and for dose level of 1 mg/day, 
+where the p value p = 0.001038 < p = 0.05. For dose level 2 mg/day we have that  p-value = 0.9639 >  = 0.05 and 95 percent confidence interval: -3.63807  3.79807 includes zero.We conclude that there is no statistically significant difference between the group means for VC and OJ when the dose level is 2 mg/day.
+
+&nbsp;
+
+**4. State your conclusions and the assumptions needed for your conclusions.**
+
+**Assumptions:**
+
+1. Samples used are random iid samples. 
+
+2. Each sample is indeendent of one another, in other words, they are not paired.
+
+3. The population distribution of each samle must be approximately normal or mound shaped and roughly 
+symetric.
+
+**Conclusions:**
+
+1. Supplement type alone does not affect the mean value of length of odontoblasts (cells responsible for
+toothgrowth).
+
+2. Dose level alone, without consideraton of supplement type affects tooth growth significantly. Increasing the dosage will induce better tooth growth.
+
+3. Orange Juice as a supplement, when used in dose levels of 0.5 mg/day and 1mg/day promotes better tooth
+growth than ascorbic acid. When applied in dose level of 2 mg/day, it has an effect on tooth growth similar 
+to that of an ascorbic acid.

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Statistical Inference Course Project</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h3>Statistical Inference Course Project</h3>
+
+<h3>Part 2 - Basic Inferential Data Analysis</h3>
+
+<h2>The Effect of Vitamin C on Tooth Growth in Guinea Pigs</h2>
+
+<p><strong>Ajla Dzajic</strong></p>
+
+<p><strong>Description</strong></p>
+
+<p>We&#39;re going to analyze the ToothGrowth data in the R datasets package.
+The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. 
+Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery 
+methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC).</p>
+
+<p><strong>1. Load the ToothGrowth data and perform some basic exploratory data analyses</strong></p>
+
+<pre><code class="r">data(ToothGrowth)
+str(ToothGrowth)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    60 obs. of  3 variables:
+##  $ len : num  4.2 11.5 7.3 5.8 6.4 10 11.2 11.2 5.2 7 ...
+##  $ supp: Factor w/ 2 levels &quot;OJ&quot;,&quot;VC&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ dose: num  0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...
+</code></pre>
+
+<p>We can see that out data frame ToothGrowth contains 60 observation of 3 variables. 
+Variable supp of type factor has two levels. VC stands for Vitamin C (ascorbic acid) and OJ is Orange Juice.</p>
+
+<pre><code class="r">table(ToothGrowth$supp, ToothGrowth$dose)
+</code></pre>
+
+<pre><code>##     
+##      0.5  1  2
+##   OJ  10 10 10
+##   VC  10 10 10
+</code></pre>
+
+<p>We can see that for each supplement type we have 3 dose levels of vitamin C (0.5, 1, and 2 mg/day). 
+Each supplement is tested on 30 guinea piggs and each supplement is tested in different doses on a subgroup of 10 guinea pigs.</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-3"/> </p>
+
+<p>From the boxlots it&#39;s obvious that the cells responsible for tooth growth in guinea pigs are getting longer as we increase the dose of ascorbic acid as a supplement.</p>
+
+<pre><code class="r">tapply(vitaminC$len, vitaminC$dose, mean)
+</code></pre>
+
+<pre><code>##   0.5     1     2 
+##  7.98 16.77 26.14
+</code></pre>
+
+<pre><code class="r">tapply(vitaminC$len, vitaminC$dose, var)
+</code></pre>
+
+<pre><code>##       0.5         1         2 
+##  7.544000  6.326778 23.018222
+</code></pre>
+
+<p>We can see that both means and variances of each group differ noticeably. </p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-5"/> </p>
+
+<p>From these boxplots we can see that as the dose level increases, so does the lenght of odontoblasts.</p>
+
+<pre><code class="r">tapply(orangeJ$len, vitaminC$dose, mean)
+</code></pre>
+
+<pre><code>##   0.5     1     2 
+## 13.23 22.70 26.06
+</code></pre>
+
+<pre><code class="r">tapply(orangeJ$len, vitaminC$dose, var)
+</code></pre>
+
+<pre><code>##       0.5         1         2 
+## 19.889000 15.295556  7.049333
+</code></pre>
+
+<p>We can also check if there is an overall difference in the effect on tooth growth between two supplements.</p>
+
+<pre><code class="r">tapply(ToothGrowth$len, ToothGrowth$supp, mean)
+</code></pre>
+
+<pre><code>##       OJ       VC 
+## 20.66333 16.96333
+</code></pre>
+
+<p>We can see that orange juice as a supplement is, on average, much more effective in promoting tooth growth in guinea pigs than ascorbic acid.</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-8"/> </p>
+
+<p>From this graph we can also see that acsorbic acid as a supplement has more varying effects on tooth growth in guinea pigs.</p>
+
+<pre><code class="r">tapply(ToothGrowth$len, ToothGrowth$supp, var)
+</code></pre>
+
+<pre><code>##       OJ       VC 
+## 43.63344 68.32723
+</code></pre>
+
+<p>This confirms our initial claim that ascorbic acid causes greater variance in resulting length of 
+odontoblasts (cells responsible for tooth growth).</p>
+
+<p>To see the overall effect of dose level on tooth growth:</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-10"/> </p>
+
+<pre><code class="r">tapply(ToothGrowth$len, ToothGrowth$dose, mean)
+</code></pre>
+
+<pre><code>##    0.5      1      2 
+## 10.605 19.735 26.100
+</code></pre>
+
+<pre><code class="r">tapply(ToothGrowth$len, ToothGrowth$dose, var)
+</code></pre>
+
+<pre><code>##      0.5        1        2 
+## 20.24787 19.49608 14.24421
+</code></pre>
+
+<p>As expected, as we increase the dose, the lenght of odontoblasts increases irrelative of the supplement type used.</p>
+
+<p><strong>2. Provide a basic summary of the data.</strong></p>
+
+<pre><code class="r">summary(ToothGrowth)
+</code></pre>
+
+<pre><code>##       len        supp         dose      
+##  Min.   : 4.20   OJ:30   Min.   :0.500  
+##  1st Qu.:13.07   VC:30   1st Qu.:0.500  
+##  Median :19.25           Median :1.000  
+##  Mean   :18.81           Mean   :1.167  
+##  3rd Qu.:25.27           3rd Qu.:2.000  
+##  Max.   :33.90           Max.   :2.000
+</code></pre>
+
+<p>From this output we can&#39;t really see much, except that in each supplement subgroup there are 30 guinea pigs
+We also see that the overall mean of length of odontoblasts is 18.81 and the median is 19.25. Minimum length is 4.20 and maximum is 33.90. </p>
+
+<p><strong>3. Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.</strong>
+(Only use the techniques from class, even if there&#39;s other approaches worth considering)</p>
+
+<p><strong>First</strong> we&#39;ll test the alternative hypothesis that mean length of odontoblasts for ascorbic acid (VC) and orange juice (OJ) differs significantly. 
+We&#39;ll assume unequal variance and we know that these groups are not paired.
+Even though these setting are default in t.test(), I&#39;ll assign them FALSE value for the sake of clarity.</p>
+
+<pre><code class="r">t.test(vitaminC$len, orangeJ$len, paired = FALSE, var.equal = FALSE)
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  vitaminC$len and orangeJ$len
+## t = -1.9153, df = 55.309, p-value = 0.06063
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -7.5710156  0.1710156
+## sample estimates:
+## mean of x mean of y 
+##  16.96333  20.66333
+</code></pre>
+
+<p>As we can see p-value = 0.06063 &gt; 0.05 =&gt; There is not enough evidence to reject the null hypothesis that 
+the difference in average tooth length (odontoblasts) for VC and OJ group is equal to zero.</p>
+
+<p>In our <strong>second step</strong> we&#39;ll do several t-tests to check if there&#39;s a statistically significant difference in mean values of length of odontoblasts (tooth growth cells) between groups that were subjected to different dose levels of supplements. 
+We&#39;ll assume again that paired = FALSE  and var.equal = FALSE, but since these are default in t.test() this time we&#39;ll skip redundant assignments.</p>
+
+<pre><code class="r">dose05 &lt;- ToothGrowth$len[ToothGrowth$dose == 0.5]
+dose1 &lt;- ToothGrowth$len[ToothGrowth$dose == 1.0]
+dose2 &lt;- ToothGrowth$len[ToothGrowth$dose == 2.0]
+
+t.test(dose05, dose1 )
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dose05 and dose1
+## t = -6.4766, df = 37.986, p-value = 1.268e-07
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -11.983781  -6.276219
+## sample estimates:
+## mean of x mean of y 
+##    10.605    19.735
+</code></pre>
+
+<pre><code class="r">t.test(dose05, dose2)
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dose05 and dose2
+## t = -11.799, df = 36.883, p-value = 4.398e-14
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -18.15617 -12.83383
+## sample estimates:
+## mean of x mean of y 
+##    10.605    26.100
+</code></pre>
+
+<pre><code class="r">t.test(dose1, dose2)
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dose1 and dose2
+## t = -4.9005, df = 37.101, p-value = 1.906e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.996481 -3.733519
+## sample estimates:
+## mean of x mean of y 
+##    19.735    26.100
+</code></pre>
+
+<p>As we can see from all 3 t.tests p value is less than 0.05 and we can reject the null hypothesis that 
+difference between means is equal to zero. We also see that all of the 95% confidence intervals are below zero which confirms are inital claims that the tooth growth increases as we increase the dose level.</p>
+
+<p>In the <strong>third step</strong> we&#39;ll inspect the diference in mean lengths of odontoblasts (cells responsible for 
+tooth growth) between ascorbic acid (VC) group and orange juice (OJ) group for each dose level applied.</p>
+
+<pre><code class="r">dose05VC &lt;- vitaminC$len[vitaminC$dose == 0.5]
+dose1VC &lt;- vitaminC$len[vitaminC$dose == 1.0]
+dose2VC &lt;- vitaminC$len[vitaminC$dose == 2.0]
+
+dose05OJ &lt;- orangeJ$len[orangeJ$dose == 0.5]
+dose1OJ &lt;- orangeJ$len[orangeJ$dose == 1.0]
+dose2OJ &lt;- orangeJ$len[orangeJ$dose == 2.0]
+</code></pre>
+
+<p>As in previous cases, we&#39;ll assume that observations are not paired and that variances are not equal.</p>
+
+<pre><code class="r">t.test(dose05VC, dose05OJ)
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dose05VC and dose05OJ
+## t = -3.1697, df = 14.969, p-value = 0.006359
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.780943 -1.719057
+## sample estimates:
+## mean of x mean of y 
+##      7.98     13.23
+</code></pre>
+
+<pre><code class="r">t.test(dose1VC, dose1OJ)
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dose1VC and dose1OJ
+## t = -4.0328, df = 15.358, p-value = 0.001038
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -9.057852 -2.802148
+## sample estimates:
+## mean of x mean of y 
+##     16.77     22.70
+</code></pre>
+
+<pre><code class="r">t.test(dose2VC, dose2OJ)
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  dose2VC and dose2OJ
+## t = 0.0461, df = 14.04, p-value = 0.9639
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -3.63807  3.79807
+## sample estimates:
+## mean of x mean of y 
+##     26.14     26.06
+</code></pre>
+
+<p>We can see from the t-tests that the difference between group means for VC and OJ is statistically  significant for dose level 0.5 mg/day, where p = 0.006358 &lt; p = 0.05  and for dose level of 1 mg/day, 
+where the p value p = 0.001038 &lt; p = 0.05. For dose level 2 mg/day we have that  p-value = 0.9639 &gt;  = 0.05 and 95 percent confidence interval: -3.63807  3.79807 includes zero.We conclude that there is no statistically significant difference between the group means for VC and OJ when the dose level is 2 mg/day.</p>
+
+<p><strong>4. State your conclusions and the assumptions needed for your conclusions.</strong></p>
+
+<p><strong>Assumptions:</strong></p>
+
+<ol>
+<li><p>Samples used are random iid samples. </p></li>
+<li><p>Each sample is indeendent of one another, in other words, they are not paired.</p></li>
+<li><p>The population distribution of each samle must be approximately normal or mound shaped and roughly 
+symetric.</p></li>
+</ol>
+
+<p><strong>Conclusions:</strong></p>
+
+<ol>
+<li><p>Supplement type alone does not affect the mean value of length of odontoblasts (cells responsible for
+toothgrowth).</p></li>
+<li><p>Dose level alone, without consideraton of supplement type affects tooth growth significantly. Increasing the dosage will induce better tooth growth.</p></li>
+<li><p>Orange Juice as a supplement, when used in dose levels of 0.5 mg/day and 1mg/day promotes better tooth
+growth than ascorbic acid. When applied in dose level of 2 mg/day, it has an effect on tooth growth similar 
+to that of an ascorbic acid.</p></li>
+</ol>
+
+</body>
+
+</html>
